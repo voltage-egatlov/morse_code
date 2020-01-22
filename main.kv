@@ -1,0 +1,70 @@
+WindowManager:
+    MainWindow:
+    SecondWindow:
+    HelperWindow:
+
+
+<MainWindow>:
+    name: "main"
+    GridLayout:
+        cols:1
+        Button:
+            text: "Go to the Translator Screen"
+            on_release:
+                app.root.current = "second"
+                root.manager.transition.direction = "left"
+        Button:
+            text: "View the instrucitons"
+            on_release:
+                app.root.current = "instructions"
+                root.manager.transition.direction = "up"
+<SecondWindow>:
+    name: "second"
+    solution:solution
+    translation:translation
+    
+    GridLayout:
+        cols:1
+        TextInput:
+            id:solution
+            multiline:True
+            readonly:True
+            font_size:55
+        TextInput:
+            id:translation
+            multiline:True
+            readonly:True
+            font_size:55
+        GridLayout:
+            cols: 3
+
+            Button:
+                text: "activate"
+                on_press:
+                    root.on_press_()
+                on_release:
+                    root.on_release_()
+
+            Button:
+                text: "clear"
+                on_press:
+                    root.reset()
+
+            Button:
+                text: "go back"
+                on_release:
+                    app.root.current="main"
+                    root.manager.transition.direction = "right"
+
+<HelperWindow>
+    name:"instructions"
+    GridLayout:
+        rows: 2
+        Label:
+            text: "its just morse code dummy \n not that hard to get"
+        Button:
+            text: "go back"
+            on_release:
+                app.root.current="main"
+                root.manager.transition.direction = "down"
+    
