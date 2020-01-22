@@ -1,0 +1,126 @@
+WindowManager:
+    MainWindow:
+    SecondWindow:
+    HelperWindow:
+    CalibratorWindow:
+
+
+<MainWindow>:
+    name: "main"
+    GridLayout:
+        cols:1
+        Button:
+            text: "Go to the Translator Screen"
+            on_release:
+                app.root.current = "second"
+                root.manager.transition.direction = "left"
+        Button:
+            text: "Go to the Calibrator Screen"
+            on_release:
+                app.root.current = "calibrate"
+                root.manager.transition.direction = "right"
+        Button:
+            text: "View the instrucitons"
+            on_release:
+                app.root.current = "instructions"
+                root.manager.transition.direction = "up"
+<SecondWindow>:
+    name: "second"
+    solution:solution
+    translation:translation
+    
+    GridLayout:
+        cols:1
+        TextInput:
+            id:solution
+            multiline:True
+            readonly:True
+            font_size:55
+        TextInput:
+            id:translation
+            multiline:True
+            readonly:True
+            font_size:55
+        GridLayout:
+            cols: 3
+
+            Button:
+                text: "activate"
+                on_press:
+                    root.on_press_()
+                on_release:
+                    root.on_release_()
+
+            Button:
+                text: "clear"
+                on_press:
+                    root.reset()
+
+            Button:
+                text: "go back"
+                on_release:
+                    app.root.current="main"
+                    root.manager.transition.direction = "right"
+
+<HelperWindow>
+    name:"instructions"
+    GridLayout:
+        rows: 2
+        Label:
+            text: "its just morse code dummy \n not that hard to get"
+        Button:
+            text: "go back"
+            on_release:
+                app.root.current="main"
+                root.manager.transition.direction = "down"
+<CalibratorWindow>
+    name:"calibrate"
+    short_button:short_button
+    long_button:long_button
+    short_press:short_press
+    long_press:long_press
+    GridLayout:
+        rows:3
+        GridLayout:
+            cols:3
+            Label:
+                text:"Calibrate short press\ndo as many of these as you want\nuntil it is calibrated to your liking"
+            Button:
+                id:short_button
+                text:"activate"
+                on_press:
+                    root.calibrate_press()
+                on_release:
+                    root.calibrate_release("short")
+            TextInput:
+                id:short_press
+                font_size:50
+                readonly:True
+                multiline:False
+        GridLayout:
+            cols:3
+            Label:
+                text:"Calibrate long press\ndo as many of these as you want\nuntil it is calibrated to your liking"
+            Button:
+                id:long_button
+                text:"activate"
+                on_press:
+                    root.calibrate_press()
+                on_release:
+                    root.calibrate_release("long")
+            TextInput:
+                id:long_press
+                font_size:50
+                readonly:True
+                multiline:False
+        GridLayout:
+            cols:2
+            Button:
+                text:"Clear Calibrations"
+                on_press:root.calibrate_clear()
+            Button:
+                text:"Go Back"
+                on_press:
+                    app.root.current = "main"
+                    root.manager.transition.direction = "left"
+    
